@@ -1,12 +1,17 @@
 function Hero() {
   return (
-    <section className="bg-green-600 text-white py-20 px-8 text-center">
-      <h2 className="text-4xl font-bold mb-4">
-        Participe de ações que transformam vidas
-      </h2>
-      <p className="text-lg">
-        Encontre eventos sociais perto de você.
-      </p>
+    <section
+      className="h-[250px] flex items-center justify-center text-white text-center bg-cover bg-center"
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac')",
+      }}
+    >
+      <div className="bg-black/40 w-full h-full flex items-center justify-center">
+        <h2 className="text-2xl font-semibold">
+          Encontre eventos sociais na sua comunidade
+        </h2>
+      </div>
     </section>
   );
 }

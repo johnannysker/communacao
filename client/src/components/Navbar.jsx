@@ -1,27 +1,33 @@
-import { FaBell, FaUserCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaHome, FaCalendarAlt, FaUser, FaClock, FaFlag } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav className="flex items-center justify-between px-8 py-4 shadow-md bg-white">
-      <h1 className="text-2xl font-bold text-green-600">ComunAção</h1>
+    <nav className="bg-gray-100 shadow-sm px-8 py-3 flex justify-center gap-10 text-sm">
+      
+      <NavLink to="/" className="flex flex-col items-center hover:text-pink-600">
+        <FaHome />
+        Home
+      </NavLink>
 
-        <ul className="hidden md:flex gap-6 font-medium">
-            <li>
-                <Link to="/" className="hover:text-green-600">
-                Home
-                </Link>
-            </li>
-            <li>
-                <Link to="/meus-eventos" className="hover:text-green-600">
-                Meus Eventos
-                </Link>
-            </li>
-        </ul>
+      <NavLink to="/meus-eventos" className="flex flex-col items-center hover:text-pink-600">
+        <FaCalendarAlt />
+        Meus Eventos
+      </NavLink>
 
-      <div className="flex items-center gap-4 text-2xl">
-        <FaBell className="cursor-pointer" />
-        <FaUserCircle className="cursor-pointer" />
+      <div className="flex flex-col items-center text-gray-400">
+        <FaUser />
+        Perfil
+      </div>
+
+      <div className="flex flex-col items-center text-gray-400">
+        <FaClock />
+        Expirados
+      </div>
+
+      <div className="flex flex-col items-center text-gray-400">
+        <FaFlag />
+        Denúncia
       </div>
     </nav>
   );

@@ -1,93 +1,100 @@
 import { useState } from "react";
-import { FaArrowLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
+import Navbar from "../components/Navbar";
+import EventCard from "../components/EventCard";
 
 function MeusEventos() {
-
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("participando");
 
-  const eventosParticipando = [
-    { id: 1, title: "Doação de Alimentos", status: "Ativo" },
-    { id: 2, title: "Mutirão de Limpeza", status: "Finalizado" },
+  // Mock - eventos que o usuário participa
+  const participando = [
+    {
+      title: "Mutirão de Saúde",
+      date: "20 Abril 2026",
+      location: "João Pessoa",
+      description: "Atendimento médico gratuito.",
+      org: "Prefeitura",
+      category: "Ajuda Humanitária",
+    },
+    {
+      title: "Limpeza de Praias",
+      date: "25 Abril 2026",
+      location: "Recife",
+      description: "Ação ambiental com voluntários.",
+      org: "EcoBrasil",
+      category: "Evento Regional",
+    },
   ];
 
-  const eventosCriados = [
-    { id: 3, title: "Campanha do Agasalho", status: "Ativo" },
+  // Mock - eventos criados pelo usuário
+  const criados = [
+    {
+      title: "Campanha do Agasalho",
+      date: "12 Abril 2026",
+      location: "Campina Grande",
+      description: "Arrecadação de roupas para famílias carentes.",
+      org: "Instituto Solidariedade",
+      category: "Doação",
+    },
   ];
 
+  // Alterna lista conforme aba
   const eventos =
-    activeTab === "participando"
-      ? eventosParticipando
-      : eventosCriados;
+    activeTab === "participando" ? participando : criados;
 
   return (
-    <div className="p-8">
+    <>
+      <Header />
+      <Navbar />
 
-        <div className="flex items-center gap-3 mb-6">
-            <button
-            onClick={() => navigate("/")}
-            className="text-xl cursor-pointer hover:text-green-600">
-                <FaArrowLeft />
-            </button>
+      <section className="px-8 py-10 text-sm">
 
-            <h1 className="text-3xl font-bold">Meus Eventos</h1>
+        {/* Título */}
+        <h1 className="text-lg font-semibold mb-4">
+          Meus Eventos
+        </h1>
+
+        {/* Abas */}
+        <div className="flex gap-4 mb-6">
+          <button
+            onClick={() => setActiveTab("participando")}
+            className={`px-4 py-2 rounded-full transition ${
+              activeTab === "participando"
+                ? "bg-blue-600 text-white"
+                : "bg-gray-200 hover:bg-gray-300"
+            }`}
+          >
+            Participando
+          </button>
+
+          <button
+            onClick={() => setActiveTab("criados")}
+            className={`px-4 py-2 rounded-full transition ${
+              activeTab === "criados"
+                ? "bg-green-600 text-white"
+                : "bg-gray-200 hover:bg-gray-300"
+            }`}
+          >
+            Criados
+          </button>
         </div>
 
-      {/* Abas */}
-      <div className="flex gap-4 mb-6">
-        <button
-          onClick={() => setActiveTab("participando")}
-          className={`px-4 py-2 rounded-full ${
-            activeTab === "participando"
-              ? "bg-blue-600 text-white"
-              : "bg-gray-200"
-          }`}
-        >
-          Participando
-        </button>
+        {/* Mensagem caso não tenha eventos */}
+        {eventos.length === 0 && (
+          <p className="text-gray-500">
+            Nenhum evento encontrado.
+          </p>
+        )}
 
-        <button
-          onClick={() => setActiveTab("criados")}
-          className={`px-4 py-2 rounded-full ${
-            activeTab === "criados"
-              ? "bg-green-600 text-white"
-              : "bg-gray-200"
-          }`}
-        >
-          Criados
-        </button>
-      </div>
+        {/* Grid de eventos */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {eventos.map((event, index) => (
+            <EventCard key={index} {...event} />
+          ))}
+        </div>
 
-      {/* Botão criar */}
-      {activeTab === "criados" && (
-        <button className="mb-6 bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700">
-          + Criar Evento
-        </button>
-      )}
-
-      {/* Lista */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {eventos.map((evento) => (
-          <div
-            key={evento.id}
-            className="bg-white shadow-md rounded-xl p-4"
-          >
-            <h3 className="text-xl font-bold">{evento.title}</h3>
-
-            <span
-              className={`text-sm px-2 py-1 rounded-full ${
-                evento.status === "Ativo"
-                  ? "bg-green-100 text-green-700"
-                  : "bg-gray-200 text-gray-600"
-              }`}
-            >
-              {evento.status}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
+      </section>
+    </>
   );
 }
 
