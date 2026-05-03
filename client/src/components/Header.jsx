@@ -1,4 +1,7 @@
 import logo from "../assets/comunacao.png"; // coloque o ícone que você mandou aqui
+import { useNavigate } from "react-router-dom";
+
+const navigate = useNavigate();
 
 function Header() {
   return (
@@ -16,7 +19,8 @@ function Header() {
       </div>
 
       {/* Botão */}
-      <button className="bg-white text-pink-600 px-4 py-2 rounded-lg font-medium hover:opacity-90">
+      <button onClick={() => navigate("/login")}
+        className="bg-white text-pink-600 px-4 py-2 rounded-lg font-medium hover:opacity-90">
         Entrar / Cadastrar
       </button>
     </header>
